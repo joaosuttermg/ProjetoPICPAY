@@ -16,6 +16,7 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 
 
 const sections = [
@@ -27,7 +28,7 @@ const sections = [
   {
     id: "2",
     title: "Pagar boleto",
-    icon: <MaterialIcons name="newspaper" size={25} color="black" />,
+    icon: <FontAwesome5 name="barcode" size={25} color="black" />,
   },
   {
     id: "3",
@@ -41,7 +42,7 @@ const sections = [
   },
   {
     id: "5",
-    title: "cartão de transporte",
+    title: "cartão transporte",
     icon: <FontAwesome5 name="bus" size={25} color="black" />,
   },
   {
@@ -54,6 +55,27 @@ const sections = [
     title: "pagar pessoas",
     icon: <FontAwesome name="money" size={25} color="black" />,
   },
+  {
+    id: "8",
+    title: "Antecipar FGTS",
+    icon: (
+      <MaterialCommunityIcons
+        name="hand-coin-outline"
+        size={30}
+        color="black"
+      />
+    ),
+  },
+  {
+    id: "9",
+    title: "Gift cards",
+    icon: <SimpleLineIcons name="present" size={25} color="black" />,
+  },
+  {
+    id: "10",
+    title: "Multas e IPVA",
+    icon: <MaterialIcons name="car-crash" size={30} color="black" />,
+  },
 ];
 
 // const HandleClick = (props) => {
@@ -65,15 +87,20 @@ const sections = [
 
 export function ViewSections() {
   return (
-    <ScrollView horizontal style={styles.carousel}>
-      {sections.map((section) => (
-        <View key={section.id} style={styles.carouselItem}>
-          <TouchableOpacity>
-            <Text style={styles.sectiontitle}>{section.title}</Text>
-            <Icon>{section.icon}</Icon>
+    <ScrollView>
+      <FlatList
+      showsHorizontalScrollIndicator={false}
+        horizontal
+        style={styles.carousel}
+        data={sections}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.carouselItem}>
+            <Icon>{item.icon}</Icon>
+            <Text style={styles.sectiontitle}>{item.title}</Text>
           </TouchableOpacity>
-        </View>
-      ))}
+        )}
+      />
     </ScrollView>
   );
 }
@@ -82,22 +109,28 @@ const styles = StyleSheet.create({
   carousel: {
     marginTop: 20,
     paddingLeft: 20,
-    paddingTop: 50,
+    marginRight: 20,
+    paddingBottom: 100,
+    
   },
   carouselItem: {
     backgroundColor: "#E6E5E5",
     padding: 15,
     borderRadius: 10,
     marginRight: 20,
-    width: 125,
-    height: 100,
+    width: 100,
+    height: 90,
     alignItems: "center",
+    textAlign: "center",
+    marginBottom: 150,
   },
   sectiontitle: {
     fontSize: 10,
     fontWeight: "bold",
     color: "gray",
     textAlign: "center",
+    alignItems: "center",
     paddingBottom: 10,
+    marginTop: 10,
   },
 });

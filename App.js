@@ -6,6 +6,7 @@ import PixScreen from "./src/screens/PixScreen";
 
 const Stack = createStackNavigator();
 
+
 export default function App() {
   return (
     <NavigationContainer>
