@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   StyleSheet,
   View,
@@ -17,6 +18,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+
 
 
 const sections = [
@@ -86,6 +88,15 @@ const sections = [
 // };
 
 export function ViewSections() {
+  const navigation = useNavigation();
+
+
+
+  const handlePress = (id) => {
+    if (id === "1") {
+      navigation.navigate("Pix",  { balance, setBalance });
+    }};
+  
   return (
     <ScrollView>
       <FlatList
@@ -95,7 +106,7 @@ export function ViewSections() {
         data={sections}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.carouselItem}>
+          <TouchableOpacity style={styles.carouselItem} onPress={() => handlePress(item.id)}>
             <Icon>{item.icon}</Icon>
             <Text style={styles.sectiontitle}>{item.title}</Text>
           </TouchableOpacity>

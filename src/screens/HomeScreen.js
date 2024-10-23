@@ -16,15 +16,16 @@ import { ViewCards } from "../components/cards";
 import { Suggestions } from "../components/suggestions";
 
 export default function HomeScreen({ sections, navigation }) {
-  const [balance, setBalance] = useState(30.61); // Saldo inicial fictício
+  const [balance, setBalance] = useState(30.61); 
   const [icon, setIcon] = useState("eye");
   const [showBalance, setShowBalance] = useState(true);
+  
 
   const toggleIcon = () => {
     setIcon((prevIcon) => (prevIcon === "eye" ? "eye-slash" : "eye"));
     setShowBalance(!showBalance);
   };
-
+  
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#01A587" />
@@ -52,7 +53,7 @@ export default function HomeScreen({ sections, navigation }) {
         </TouchableOpacity>
       </View>
       <Text style={styles.division}>Pro dia a dia</Text>
-      <ViewSections />
+      <ViewSections navigation={navigation} balance={balance} setBalance={setBalance} />
       <Text style={styles.division2}>Sugestões</Text>
       <ViewCards />
       <Suggestions/>
