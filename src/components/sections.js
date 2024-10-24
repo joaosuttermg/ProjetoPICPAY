@@ -87,7 +87,7 @@ const sections = [
 //   }
 // };
 
-export function ViewSections() {
+export function ViewSections({balance, setBalance}) {
   const navigation = useNavigation();
 
 
