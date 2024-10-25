@@ -1,19 +1,15 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen, { ThemeContext } from "./src/screens/HomeScreen";
+import HomeScreen from "./src/screens/HomeScreen";
 import PixScreen from "./src/screens/PixScreen";
-import { ThemeProvider } from "./src/contexts/ThemeContext";
-const [theme, setTheme] = useState("dark");
-
-const ThemeContext = createContext(null);
-
+import { ThemeProvider } from "./src/components/ThemeContext"; 
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <ThemeContext.Provider value="dark">
+    <ThemeProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -21,13 +17,6 @@ export default function App() {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
-          <Button
-            onClick={() => {
-              setTheme("light");
-            }}
-          >
-            Switch to light theme
-          </Button>
           <Stack.Screen
             name="Pix"
             component={PixScreen}
@@ -35,6 +24,6 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }

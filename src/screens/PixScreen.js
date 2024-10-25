@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { useTheme } from "../components/ThemeContext";
 
 export default function PixScreen({ route, navigation }) {
   const { balance, setBalance } = route.params;
   const [amount, setAmount] = useState("");
+
+  const { theme } = useTheme();
 
   const handlePix = () => {
     const value = parseFloat(amount);
@@ -23,14 +19,15 @@ export default function PixScreen({ route, navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Realizar PIX</Text>
+    <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+      <Text style={[styles.title, { color: theme.textColor }]}>Realizar PIX</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: theme.textColor, color: theme.textColor }]}
         placeholder="Digite o valor"
         keyboardType="numeric"
         value={amount}
         onChangeText={setAmount}
+        placeholderTextColor={theme.textColor}
       />
       <TouchableOpacity onPress={handlePix} style={styles.button}>
         <Text style={styles.buttonText}>Enviar</Text>
@@ -42,7 +39,6 @@ export default function PixScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f0",
     padding: 20,
     justifyContent: "center",
   },
@@ -54,7 +50,6 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "#ddd",
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,

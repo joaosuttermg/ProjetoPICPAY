@@ -1,52 +1,31 @@
 
 
- import {
-   StyleSheet,
-   View,
-   Text,
-   FlatList,
-   ScrollView,
-   TouchableOpacity,
-   StatusBar,
-   Image,
- } from "react-native";
- import { ViewSections } from "../components/sections";
- import Entypo from "react-native-vector-icons/Entypo";
- import FontAwesome from "react-native-vector-icons/FontAwesome";
- import { ViewCards } from "../components/cards";
- import { Suggestions } from "../components/suggestions";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  ScrollView,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+} from "react-native";
+import { ViewSections } from "../components/sections";
+import Entypo from "react-native-vector-icons/Entypo";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { ViewCards } from "../components/cards";
+import { Suggestions } from "../components/suggestions";
 import React, { createContext, useState, useContext } from "react";
- const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-export const ThemeContext = createContext();
-
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState({
-    backgroundColor: "#f0f0f0",
-    textColor: "#000",
-    headerColor: "#01A587",
-  });
-
-  const toggleTheme = () => setIsDarkTheme(!isDarkTheme);
-
-  const currentStyles = isDarkTheme ? darkStyles : styles;
-
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-};
+import { useTheme } from "../components/ThemeContext";
 
 
-export default function HomeScreen({ sections, navigation }) {
+export default function HomeScreen({ navigation }) {
   const [balance, setBalance] = useState(30.61);
   const [icon, setIcon] = useState("eye");
   const [showBalance, setShowBalance] = useState(true);
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  
+  const { theme, toggleTheme } = useTheme();
  
-
-
   const toggleIcon = () => {
     setIcon((prevIcon) => (prevIcon === "eye" ? "eye-slash" : "eye"));
     setShowBalance(!showBalance);
