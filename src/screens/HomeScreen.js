@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
   const [showBalance, setShowBalance] = useState(true);
 
   useEffect(() => {
-    // Load balance from AsyncStorage
+    
     const loadBalance = async () => {
       try {
         const storedBalance = await AsyncStorage.getItem("BALANCE");
@@ -42,7 +42,7 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    // Save balance to AsyncStorage whenever it changes
+    
     const saveBalance = async () => {
       try {
         await AsyncStorage.setItem("BALANCE", balance.toString());
