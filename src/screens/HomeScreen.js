@@ -9,21 +9,49 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
+  
 } from "react-native";
 import { ViewSections } from "../components/sections";
 import Entypo from "react-native-vector-icons/Entypo";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { ViewCards } from "../components/cards";
 import { Suggestions } from "../components/suggestions";
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState,useEffect, useContext } from "react";
 import { useTheme } from "../components/ThemeContext";
+import { AsyncStorage } from "react-native";
 
 
 export default function HomeScreen({ navigation }) {
   const [balance, setBalance] = useState(30.61);
   const [icon, setIcon] = useState("eye");
   const [showBalance, setShowBalance] = useState(true);
-  
+
+  useEffect(() => {
+    // Load balance from AsyncStorage
+    const loadBalance = async () => {
+      try {
+        const storedBalance = await AsyncStorage.getItem("BALANCE");
+        if (storedBalance !== null) {
+          setBalance(parseFloat(storedBalance));
+        }
+      } catch (error) {
+        alert("Error loading balance");
+      }
+    };
+    loadBalance();
+  }, []);
+
+  useEffect(() => {
+    // Save balance to AsyncStorage whenever it changes
+    const saveBalance = async () => {
+      try {
+        await AsyncStorage.setItem("BALANCE", balance.toString());
+      } catch (error) {
+        alert("Error saving balance");
+      }
+    };
+    saveBalance();
+  }, [balance]);
   const { theme, toggleTheme } = useTheme();
  
   const toggleIcon = () => {
@@ -67,7 +95,7 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={toggleTheme}>
-          <Text style={[styles.link, { color: theme.textColor }]}>
+          <Text style={[styles.tema, { color: theme.textColor }]}>
             Mudar Tema
           </Text>
         </TouchableOpacity>
@@ -170,4 +198,28 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 50,
   },
+  tema : {
+    fontWeight: "bold",
+    fontSize: 10,
+  
+    backgroundColor: "#fff",
+    padding: 10,
+    borderRadius: 50,
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 20,
+    color: "#000",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    marginLeft: 100,
+    width: 100,
+    height: 35,
+    borderRadius: 10,
+    
+  }
 });
